@@ -17,6 +17,8 @@ public class Game : MonoBehaviour {
     Ball ball;
     Paddle paddle;
     int score = 0;
+    int lives = 5;
+    GUIStyle style;
 
 	void Start ()
     {
@@ -25,6 +27,9 @@ public class Game : MonoBehaviour {
         Random.seed = System.DateTime.Now.Second;
         paddle = GameObject.Find("Paddle").GetComponent<Paddle>();
         ball = GameObject.Find("Ball").GetComponent<Ball>();
+        style = new GUIStyle();
+        style.fontSize = 20;
+        style.normal.textColor = Color.gray;
 	}
 	
 	void Update () 
@@ -65,8 +70,22 @@ public class Game : MonoBehaviour {
         ++score;
     }
 
+    public void LoseLife()
+    {
+        --lives;
+    }
+
     public void PlaySound(SoundClip sound)
     {
         audio.PlayOneShot(Sounds[(int)sound]);
+    }
+
+    void OnGUI()
+    {
+        GUILayout.Label(lives.ToString(), style);
+        if (lives <= 0)
+        {
+            GUILayout.Label("YOU LOSE!!!!!!!", style);
+        }
     }
 }

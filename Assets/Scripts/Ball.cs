@@ -103,6 +103,7 @@ public class Ball : MonoBehaviour {
             }
             else // We've hit the bottom of the screen, we're dead!
             {
+                Game.Instance.LoseLife();
                 Respawn();
                 return;
             }
